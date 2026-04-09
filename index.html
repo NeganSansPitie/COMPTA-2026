@@ -7,14 +7,8 @@
 <title>Budget Negan PRO</title>
 
 <style>
-body {
-    margin:0;
-    font-family:-apple-system;
-    background:#0f172a;
-    color:white;
-}
+body { margin:0; font-family:-apple-system; background:#0f172a; color:white; }
 h1 { text-align:center; padding:15px; }
-
 .container { padding:10px; }
 
 .card {
@@ -74,73 +68,60 @@ input {
 
 </div>
 
-<!-- CHARGES -->
+<!-- CRELAN -->
 <div class="card">
-<h2>🧾 Charges</h2>
+<h2>🏦 Charges CRELAN</h2>
 
-<h3>🏠 Crédits</h3>
-<div class="row"><label>Prêt maison</label><input class="charge" type="number" value="561.79"></div>
-<div class="row"><label>Prêt travaux 1</label><input class="charge" type="number" value="283.26"></div>
-<div class="row"><label>Prêt travaux 2</label><input class="charge" type="number" value="326.41"></div>
+<div class="row"><label>Prêt maison</label><input class="crelan" type="number" value="561.79"></div>
+<div class="row"><label>Prêt travaux 1</label><input class="crelan" type="number" value="283.26"></div>
+<div class="row"><label>Prêt travaux 2</label><input class="crelan" type="number" value="326.41"></div>
+<div class="row"><label>Eau (mensuel)</label><input class="crelan" type="number" value="63.33"></div>
+<div class="row"><label>Gaz / Électricité</label><input class="crelan" type="number" value="231.99"></div>
+<div class="row"><label>FGTB</label><input class="crelan" type="number" value="17.70"></div>
+<div class="row"><label>Partenamut</label><input class="crelan" type="number" value="38.21"></div>
+<div class="row"><label>Assurance groupe</label><input class="crelan" type="number" value="120.63"></div>
+<div class="row"><label>Garage</label><input class="crelan" type="number" value="100"></div>
+<div class="row"><label>Proximus</label><input class="crelan" type="number" value="55"></div>
+<div class="row"><label>Base</label><input class="crelan" type="number" value="27.30"></div>
+<div class="row"><label>VOO</label><input class="crelan" type="number" value="72"></div>
+
+<p id="totalCrelan" class="total"></p>
+
+</div>
+
+<!-- AUTRES CHARGES -->
+<div class="card">
+<h2>🧾 Autres charges</h2>
+
 <div class="row"><label>Prêt voiture</label><input class="charge" type="number" value="273.85"></div>
-
-<h3>🏡 Maison</h3>
-<div class="row"><label>Eau</label><input class="charge" type="number" value="63.33"></div>
-<div class="row"><label>Gaz / Électricité</label><input class="charge" type="number" value="231.99"></div>
-<div class="row"><label>Garage</label><input class="charge" type="number" value="100"></div>
-
-<h3>📡 Abonnements</h3>
-<div class="row"><label>Proximus</label><input class="charge" type="number" value="80"></div>
-<div class="row"><label>VOO</label><input class="charge" type="number" value="72"></div>
-<div class="row"><label>Base</label><input class="charge" type="number" value="27.30"></div>
-<div class="row"><label>Apple</label><input class="charge" type="number" value="2.99"></div>
-<div class="row"><label>Média</label><input class="charge" type="number" value="30"></div>
-
-<h3>🛡️ Assurances / Santé</h3>
-<div class="row"><label>FGTB</label><input class="charge" type="number" value="17.70"></div>
-<div class="row"><label>Partenamut</label><input class="charge" type="number" value="38.21"></div>
-<div class="row"><label>Assurance groupe</label><input class="charge" type="number" value="120.63"></div>
-<div class="row"><label>Mutuelle assurance</label><input class="charge" type="number" value="24.74"></div>
-<div class="row"><label>Lunettes</label><input class="charge" type="number" value="84.75"></div>
-
-<h3>⚖️ Dettes</h3>
-<div class="row"><label>Avocat</label><input class="charge" type="number" value="225"></div>
-<div class="row"><label>VISA</label><input class="charge" type="number" value="265"></div>
-
-<h3>👨‍👩‍👧 Vie quotidienne</h3>
 <div class="row"><label>Part contributives</label><input class="charge" type="number" value="558.54"></div>
 <div class="row"><label>Frais extra scolaire</label><input class="charge" type="number" value="125"></div>
 <div class="row"><label>Courses</label><input class="charge" type="number" value="900"></div>
 <div class="row"><label>Essence</label><input class="charge" type="number" value="250"></div>
 
 <h3>💸 Frais divers</h3>
-<div class="row"><label>Total divers</label><input id="diversTotal" type="number" readonly></div>
-<div class="row"><label>Ajouter frais</label><input id="diversInput" type="number"></div>
+<div class="row"><label>Total</label><input id="diversTotal" type="number" readonly></div>
+<div class="row"><label>Ajouter</label><input id="diversInput" type="number"></div>
 
 </div>
 
 <!-- REVOLUT -->
 <div class="card">
-<h2>🏦 Coffres Revolut</h2>
+<h2>🏦 Revolut</h2>
 
-<h3>📱 MÉDIA</h3>
-<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>MÉDIA</label><input class="revBase" type="number"></div>
 <div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
-<h3>⛽ CARBURANT</h3>
-<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>CARBURANT</label><input class="revBase" type="number"></div>
 <div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
-<h3>🎓 SCOLAIRE</h3>
-<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>SCOLAIRE</label><input class="revBase" type="number"></div>
 <div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
-<h3>🧾 TAXES</h3>
-<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>TAXES</label><input class="revBase" type="number"></div>
 <div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
-<h3>🚗 VOITURE</h3>
-<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>VOITURE</label><input class="revBase" type="number"></div>
 <div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
 <p id="revTotal" class="total"></p>
@@ -153,7 +134,6 @@ input {
 
 <p id="revenus"></p>
 <p id="charges"></p>
-<p id="annuel"></p>
 <p id="reste"></p>
 
 </div>
@@ -162,83 +142,85 @@ input {
 
 <script>
 
-// TRANSACTIONS
-document.getElementById("diversInput").addEventListener("change", function(){
-    let total = document.getElementById("diversTotal");
-    total.value = (parseFloat(total.value) || 0) + (parseFloat(this.value) || 0);
-    this.value = "";
+// FRAIS DIVERS
+diversInput.addEventListener("change", function(){
+    diversTotal.value = (parseFloat(diversTotal.value)||0) + (parseFloat(this.value)||0);
+    this.value="";
     calcul();
 });
 
-document.querySelectorAll(".revFrais").forEach((input, index)=>{
-    input.addEventListener("change", function(){
+// REVOLUT
+document.querySelectorAll(".revFrais").forEach((i,index)=>{
+    i.addEventListener("change", function(){
         let base = document.querySelectorAll(".revBase")[index];
-        base.value = (parseFloat(base.value) || 0) + (parseFloat(this.value) || 0);
-        this.value = "";
+        base.value = (parseFloat(base.value)||0)+(parseFloat(this.value)||0);
+        this.value="";
         calcul();
     });
 });
 
-document.querySelectorAll("input").forEach(i=>{
-    i.addEventListener("input", calcul);
-});
+document.querySelectorAll("input").forEach(i=> i.addEventListener("input", calcul));
 
-// CALCUL
 function calcul(){
 
     let revenusVal =
-        (parseFloat(negan.value) || 0) +
-        (parseFloat(lucille.value) || 0) +
-        (parseFloat(bonus.value) || 0);
+        (parseFloat(negan.value)||0)+
+        (parseFloat(lucille.value)||0)+
+        (parseFloat(bonus.value)||0);
 
-    let chargesVal = 0;
-    document.querySelectorAll(".charge").forEach(i=>{
-        let val = parseFloat(i.value);
-        chargesVal += isNaN(val) ? 0 : val;
+    let crelanTotal = 0;
+    document.querySelectorAll(".crelan").forEach(i=>{
+        let val=parseFloat(i.value);
+        crelanTotal += isNaN(val)?0:val;
     });
 
-    chargesVal += (parseFloat(diversTotal.value) || 0);
+    document.getElementById("totalCrelan").innerText =
+        "Total CRELAN : "+crelanTotal.toFixed(2)+" €";
 
-    let totalRevolut = 0;
+    let chargesVal = crelanTotal;
+
+    document.querySelectorAll(".charge").forEach(i=>{
+        let val=parseFloat(i.value);
+        chargesVal += isNaN(val)?0:val;
+    });
+
+    chargesVal += (parseFloat(diversTotal.value)||0);
+
+    let totalRevolut=0;
     document.querySelectorAll(".revBase").forEach(i=>{
-        let val = parseFloat(i.value);
-        totalRevolut += isNaN(val) ? 0 : val;
+        let val=parseFloat(i.value);
+        totalRevolut+=isNaN(val)?0:val;
     });
 
     let reste = revenusVal - chargesVal;
 
-    document.getElementById("revenus").innerText = "Revenus : " + revenusVal.toFixed(2) + " €";
-    document.getElementById("charges").innerText = "Charges : " + chargesVal.toFixed(2) + " €";
-    document.getElementById("annuel").innerText = "Annuel : " + (chargesVal*12).toFixed(2) + " €";
+    document.getElementById("revenus").innerText="Revenus : "+revenusVal.toFixed(2)+" €";
+    document.getElementById("charges").innerText="Charges : "+chargesVal.toFixed(2)+" €";
 
-    let resteText = document.getElementById("reste");
-    resteText.innerText = "Reste : " + reste.toFixed(2) + " €";
-    resteText.className = reste < 0 ? "negative" : "total";
+    let r=document.getElementById("reste");
+    r.innerText="Reste : "+reste.toFixed(2)+" €";
+    r.className = reste<0?"negative":"total";
 
-    document.getElementById("revTotal").innerText =
-        "Total Revolut : " + totalRevolut.toFixed(2) + " €";
+    document.getElementById("revTotal").innerText=
+        "Total Revolut : "+totalRevolut.toFixed(2)+" €";
 
     document.getElementById("alert").style.display =
-        reste < 0 ? "block" : "none";
+        reste<0?"block":"none";
 
     saveData();
 }
 
-// SAVE
 function saveData(){
-    let data = [];
-    document.querySelectorAll("input").forEach(i=>{
-        data.push(i.value);
-    });
-    localStorage.setItem("budgetNegan", JSON.stringify(data));
+    let data=[];
+    document.querySelectorAll("input").forEach(i=>data.push(i.value));
+    localStorage.setItem("budgetNegan",JSON.stringify(data));
 }
 
-// LOAD
 function loadData(){
-    let data = JSON.parse(localStorage.getItem("budgetNegan"));
+    let data=JSON.parse(localStorage.getItem("budgetNegan"));
     if(data){
         document.querySelectorAll("input").forEach((i,index)=>{
-            i.value = data[index];
+            i.value=data[index];
         });
     }
     calcul();
