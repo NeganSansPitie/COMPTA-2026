@@ -101,7 +101,7 @@ input {
 <div class="row"><label>Partenamut</label><input class="charge" type="number" value="38.21"></div>
 <div class="row"><label>Assurance groupe</label><input class="charge" type="number" value="120.63"></div>
 <div class="row"><label>Mutuelle assurance</label><input class="charge" type="number" value="24.74"></div>
-<div class="row"><label>Lunettes</label><input class="charge" type="number" value="84.75"></div>
+<div class="row"><label>Lunettes</label><input class="charge" type="number" value="37.25"></div>
 
 <h3>⚖️ Dettes</h3>
 <div class="row"><label>Avocat</label><input class="charge" type="number" value="225"></div>
@@ -165,7 +165,7 @@ input {
 // TRANSACTIONS
 document.getElementById("diversInput").addEventListener("change", function(){
     let total = document.getElementById("diversTotal");
-    total.value = Number(total.value || 0) + Number(this.value || 0);
+    total.value = (parseFloat(total.value) || 0) + (parseFloat(this.value) || 0);
     this.value = "";
     calcul();
 });
@@ -173,30 +173,36 @@ document.getElementById("diversInput").addEventListener("change", function(){
 document.querySelectorAll(".revFrais").forEach((input, index)=>{
     input.addEventListener("change", function(){
         let base = document.querySelectorAll(".revBase")[index];
-        base.value = Number(base.value || 0) + Number(this.value || 0);
+        base.value = (parseFloat(base.value) || 0) + (parseFloat(this.value) || 0);
         this.value = "";
         calcul();
     });
+});
+
+document.querySelectorAll("input").forEach(i=>{
+    i.addEventListener("input", calcul);
 });
 
 // CALCUL
 function calcul(){
 
     let revenusVal =
-        Number(document.getElementById("negan").value || 0) +
-        Number(document.getElementById("lucille").value || 0) +
-        Number(document.getElementById("bonus").value || 0);
+        (parseFloat(negan.value) || 0) +
+        (parseFloat(lucille.value) || 0) +
+        (parseFloat(bonus.value) || 0);
 
     let chargesVal = 0;
     document.querySelectorAll(".charge").forEach(i=>{
-        chargesVal += Number(i.value || 0);
+        let val = parseFloat(i.value);
+        chargesVal += isNaN(val) ? 0 : val;
     });
 
-    chargesVal += Number(document.getElementById("diversTotal").value || 0);
+    chargesVal += (parseFloat(diversTotal.value) || 0);
 
     let totalRevolut = 0;
     document.querySelectorAll(".revBase").forEach(i=>{
-        totalRevolut += Number(i.value || 0);
+        let val = parseFloat(i.value);
+        totalRevolut += isNaN(val) ? 0 : val;
     });
 
     let reste = revenusVal - chargesVal;
