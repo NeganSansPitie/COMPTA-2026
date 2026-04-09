@@ -125,23 +125,23 @@ input {
 
 <h3>📱 MÉDIA</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
 <h3>⛽ CARBURANT</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
-<h3>🎓 FRAIS SCOLAIRE</h3>
+<h3>🎓 SCOLAIRE</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
 <h3>🧾 TAXES</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
 <h3>🚗 VOITURE</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
 
 <p id="revTotal" class="total"></p>
 
@@ -162,52 +162,85 @@ input {
 
 <script>
 
-// TRANSACTION FRAIS DIVERS
-diversInput.addEventListener("change", function(){
-    diversTotal.value = Number(diversTotal.value || 0) + Number(diversInput.value || 0);
-    diversInput.value = "";
+// TRANSACTIONS
+document.getElementById("diversInput").addEventListener("change", function(){
+    let total = document.getElementById("diversTotal");
+    total.value = Number(total.value || 0) + Number(this.value || 0);
+    this.value = "";
     calcul();
 });
 
-// TRANSACTION REVOLUT
 document.querySelectorAll(".revFrais").forEach((input, index)=>{
     input.addEventListener("change", function(){
         let base = document.querySelectorAll(".revBase")[index];
-        base.value = Number(base.value || 0) + Number(input.value || 0);
-        input.value = "";
+        base.value = Number(base.value || 0) + Number(this.value || 0);
+        this.value = "";
         calcul();
     });
 });
 
-document.querySelectorAll("input").forEach(i=>{
-    i.addEventListener("input", calcul);
-});
-
+// CALCUL
 function calcul(){
 
-    let revenus =
-        Number(negan.value || 0) +
-        Number(lucille.value || 0) +
-        Number(bonus.value || 0);
+    let revenusVal =
+        Number(document.getElementById("negan").value || 0) +
+        Number(document.getElementById("lucille").value || 0) +
+        Number(document.getElementById("bonus").value || 0);
 
-    let charges = 0;
+    let chargesVal = 0;
     document.querySelectorAll(".charge").forEach(i=>{
-        charges += Number(i.value || 0);
+        chargesVal += Number(i.value || 0);
     });
 
-    charges += Number(diversTotal.value || 0);
+    chargesVal += Number(document.getElementById("diversTotal").value || 0);
 
     let totalRevolut = 0;
     document.querySelectorAll(".revBase").forEach(i=>{
         totalRevolut += Number(i.value || 0);
     });
 
-    let reste = revenus - charges;
+    let reste = revenusVal - chargesVal;
 
-    revenus.innerText = "Revenus : " + revenus.toFixed(2) + " €";
-    charges.innerText = "Charges : " + charges.toFixed(2) + " €";
-    annuel.innerText = "Annuel : " + (charges*12).toFixed(2) + " €";
+    document.getElementById("revenus").innerText = "Revenus : " + revenusVal.toFixed(2) + " €";
+    document.getElementById("charges").innerText = "Charges : " + chargesVal.toFixed(2) + " €";
+    document.getElementById("annuel").innerText = "Annuel : " + (chargesVal*12).toFixed(2) + " €";
 
     let resteText = document.getElementById("reste");
     resteText.innerText = "Reste : " + reste.toFixed(2) + " €";
-    resteText.className = reste < 0 ? "negative" : "total
+    resteText.className = reste < 0 ? "negative" : "total";
+
+    document.getElementById("revTotal").innerText =
+        "Total Revolut : " + totalRevolut.toFixed(2) + " €";
+
+    document.getElementById("alert").style.display =
+        reste < 0 ? "block" : "none";
+
+    saveData();
+}
+
+// SAVE
+function saveData(){
+    let data = [];
+    document.querySelectorAll("input").forEach(i=>{
+        data.push(i.value);
+    });
+    localStorage.setItem("budgetNegan", JSON.stringify(data));
+}
+
+// LOAD
+function loadData(){
+    let data = JSON.parse(localStorage.getItem("budgetNegan"));
+    if(data){
+        document.querySelectorAll("input").forEach((i,index)=>{
+            i.value = data[index];
+        });
+    }
+    calcul();
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
