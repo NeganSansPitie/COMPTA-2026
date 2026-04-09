@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Budget Negan PRO</title>
+
+<style>
+body { margin:0; font-family:-apple-system; background:#0f172a; color:white; }
+h1 { text-align:center; padding:15px; }
+
+.container { padding:10px; }
+
+.card {
+    background:#1e293b;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+h3 { color:#38bdf8; margin-top:15px; }
+
+.row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.row label { flex:1; }
+.row input { width:120px; }
+
+input {
+    padding:10px;
+    margin:6px 0;
+    border-radius:10px;
+    border:none;
+}
+
+.total { color:#22c55e; font-size:18px; }
+.negative { color:red; }
+
+.alert {
+    background:red;
+    padding:10px;
+    border-radius:10px;
+    text-align:center;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💰 Budget Negan</h1>
+
+<div class="container">
+
+<div id="alert" class="alert">⚠️ Budget négatif</div>
+
+<!-- REVENUS -->
+<div class="card">
+<h2>💵 Revenus</h2>
+<div class="row"><label>Negan</label><input type="number" id="negan"></div>
+<div class="row"><label>Lucille</label><input type="number" id="lucille"></div>
+<div class="row"><label>Bonus</label><input type="number" id="bonus"></div>
+</div>
+
+<!-- CHARGES -->
+<div class="card">
+<h2>🧾 Charges</h2>
+
+<h3>🏠 Crédits</h3>
+<div class="row"><label>Prêt maison</label><input class="charge" type="number" value="561.79"></div>
+<div class="row"><label>Prêt travaux 1</label><input class="charge" type="number" value="283.26"></div>
+<div class="row"><label>Prêt travaux 2</label><input class="charge" type="number" value="326.41"></div>
+<div class="row"><label>Prêt voiture</label><input class="charge" type="number" value="273.85"></div>
+
+<h3>🏡 Maison</h3>
+<div class="row"><label>Eau</label><input class="charge" type="number" value="63.33"></div>
+<div class="row"><label>Gaz / Électricité</label><input class="charge" type="number" value="231.99"></div>
+<div class="row"><label>Garage</label><input class="charge" type="number" value="100"></div>
+
+<h3>📡 Abonnements</h3>
+<div class="row"><label>Proximus</label><input class="charge" type="number" value="80"></div>
+<div class="row"><label>VOO</label><input class="charge" type="number" value="72"></div>
+<div class="row"><label>Base</label><input class="charge" type="number" value="27.30"></div>
+<div class="row"><label>Apple</label><input class="charge" type="number" value="2.99"></div>
+<div class="row"><label>Média</label><input class="charge" type="number" value="30"></div>
+
+<h3>🛡️ Assurances</h3>
+<div class="row"><label>FGTB</label><input class="charge" type="number" value="17.70"></div>
+<div class="row"><label>Partenamut</label><input class="charge" type="number" value="38.21"></div>
+<div class="row"><label>Assurance groupe</label><input class="charge" type="number" value="120.63"></div>
+<div class="row"><label>Mutuelle assurance</label><input class="charge" type="number" value="24.74"></div>
+<div class="row"><label>Lunettes</label><input class="charge" type="number" value="37.25"></div>
+
+<h3>⚖️ Dettes</h3>
+<div class="row"><label>Avocat</label><input class="charge" type="number" value="225"></div>
+<div class="row"><label>VISA</label><input class="charge" type="number" value="265"></div>
+
+<h3>👨‍👩‍👧 Vie quotidienne</h3>
+<div class="row"><label>Part contributives</label><input class="charge" type="number" value="558.54"></div>
+<div class="row"><label>Frais extra scolaire</label><input class="charge" type="number" value="125"></div>
+<div class="row"><label>Courses</label><input class="charge" type="number" value="900"></div>
+<div class="row"><label>Essence</label><input class="charge" type="number" value="250"></div>
+
+<!-- 🔥 FRAIS DIVERS -->
+<h3>💸 Frais divers</h3>
+<div class="row"><label>Total</label><input id="diversTotal" type="number" readonly></div>
+<div class="row"><label>Ajouter</label><input id="diversInput" type="number"></div>
+
+</div>
+
+<!-- REVOLUT -->
+<div class="card">
+<h2>🏦 Coffres Revolut</h2>
+
+<h3>MÉDIA</h3>
+<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+
+<h3>CARBURANT</h3>
+<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+
+<h3>SCOLAIRE</h3>
+<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+
+<h3>TAXES</h3>
+<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+
+<h3>VOITURE</h3>
+<div class="row"><label>Solde</label><input class="revBase" type="number"></div>
+<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+
+<p id="revTotal" class="total"></p>
+
+</div>
+
+<!-- RESULTATS -->
+<div class="card">
+<h2>📊 Résultat</h2>
+<p id="revenus"></p>
+<p id="charges"></p>
+<p id="annuel"></p>
+<p id="reste"></p>
+</div>
+
+</div>
+
+<script>
+
+// 🔥 TRANSACTION REVOLUT
+document.querySelectorAll(".revFrais").forEach((input, i)=>{
+    input.addEventListener("change", function(){
+        let base = document.querySelectorAll(".revBase")[i];
+        base.value = Number(base.value||0) + Number(input.value||0);
+        input.value = "";
+        calcul();
+    });
+});
+
+// 🔥 FRAIS DIVERS
+document.getElementById("diversInput").addEventListener("change", function(){
+    let total = document.getElementById("diversTotal");
+    total.value = Number(total.value||0) + Number(this.value||0);
+    this.value = "";
+    calcul();
+});
+
+function calcul(){
+
+    let revenus =
+        Number(negan.value||0) +
+        Number(lucille.value||0) +
+        Number(bonus.value||0);
+
+    let charges = 0;
+    document.querySelectorAll(".charge").forEach(i=>{
+        charges += Number(i.value||0);
+    });
+
+    charges += Number(document.getElementById("diversTotal").value||0);
+
+    let totalRevolut = 0;
+    document.querySelectorAll(".revBase").forEach(i=>{
+        totalRevolut += Number(i.value||0);
+    });
+
+    let reste = revenus - charges;
+
+    revenus.innerText = "Revenus : " + revenus.toFixed(2) + " €";
+    charges.innerText = "Charges : " + charges.toFixed(2) + " €";
+    annuel.innerText = "Annuel : " + (charges*12).toFixed(2) + " €";
+
+    let resteText = document.getElementById("reste");
+    resteText.innerText = "Reste : " + reste.toFixed(2) + " €";
+    resteText.className = reste < 0 ? "negative" : "total";
+
+    document.getElementById("revTotal").innerText =
+        "Total Revolut : " + totalRevolut.toFixed(2) + " €";
+
+    alert.style.display = reste < 0 ? "block" : "none";
+}
+
+calcul();
+
+</script>
+
+</body>
+</html>
