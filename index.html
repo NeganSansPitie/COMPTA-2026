@@ -7,7 +7,12 @@
 <title>Budget Negan PRO</title>
 
 <style>
-body { margin:0; font-family:-apple-system; background:#0f172a; color:white; }
+body {
+    margin:0;
+    font-family:-apple-system;
+    background:#0f172a;
+    color:white;
+}
 h1 { text-align:center; padding:15px; }
 
 .container { padding:10px; }
@@ -62,9 +67,11 @@ input {
 <!-- REVENUS -->
 <div class="card">
 <h2>💵 Revenus</h2>
+
 <div class="row"><label>Negan</label><input type="number" id="negan"></div>
 <div class="row"><label>Lucille</label><input type="number" id="lucille"></div>
 <div class="row"><label>Bonus</label><input type="number" id="bonus"></div>
+
 </div>
 
 <!-- CHARGES -->
@@ -89,7 +96,7 @@ input {
 <div class="row"><label>Apple</label><input class="charge" type="number" value="2.99"></div>
 <div class="row"><label>Média</label><input class="charge" type="number" value="30"></div>
 
-<h3>🛡️ Assurances</h3>
+<h3>🛡️ Assurances / Santé</h3>
 <div class="row"><label>FGTB</label><input class="charge" type="number" value="17.70"></div>
 <div class="row"><label>Partenamut</label><input class="charge" type="number" value="38.21"></div>
 <div class="row"><label>Assurance groupe</label><input class="charge" type="number" value="120.63"></div>
@@ -106,10 +113,9 @@ input {
 <div class="row"><label>Courses</label><input class="charge" type="number" value="900"></div>
 <div class="row"><label>Essence</label><input class="charge" type="number" value="250"></div>
 
-<!-- 🔥 FRAIS DIVERS -->
 <h3>💸 Frais divers</h3>
-<div class="row"><label>Total</label><input id="diversTotal" type="number" readonly></div>
-<div class="row"><label>Ajouter</label><input id="diversInput" type="number"></div>
+<div class="row"><label>Total divers</label><input id="diversTotal" type="number" readonly></div>
+<div class="row"><label>Ajouter frais</label><input id="diversInput" type="number"></div>
 
 </div>
 
@@ -117,25 +123,25 @@ input {
 <div class="card">
 <h2>🏦 Coffres Revolut</h2>
 
-<h3>MÉDIA</h3>
+<h3>📱 MÉDIA</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
 
-<h3>CARBURANT</h3>
+<h3>⛽ CARBURANT</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
 
-<h3>SCOLAIRE</h3>
+<h3>🎓 FRAIS SCOLAIRE</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
 
-<h3>TAXES</h3>
+<h3>🧾 TAXES</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
 
-<h3>VOITURE</h3>
+<h3>🚗 VOITURE</h3>
 <div class="row"><label>Solde</label><input class="revBase" type="number"></div>
-<div class="row"><label>Frais</label><input class="revFrais" type="number"></div>
+<div class="row"><label>Frais (+ / -)</label><input class="revFrais" type="number"></div>
 
 <p id="revTotal" class="total"></p>
 
@@ -144,51 +150,56 @@ input {
 <!-- RESULTATS -->
 <div class="card">
 <h2>📊 Résultat</h2>
+
 <p id="revenus"></p>
 <p id="charges"></p>
 <p id="annuel"></p>
 <p id="reste"></p>
+
 </div>
 
 </div>
 
 <script>
 
-// 🔥 TRANSACTION REVOLUT
-document.querySelectorAll(".revFrais").forEach((input, i)=>{
+// TRANSACTION FRAIS DIVERS
+diversInput.addEventListener("change", function(){
+    diversTotal.value = Number(diversTotal.value || 0) + Number(diversInput.value || 0);
+    diversInput.value = "";
+    calcul();
+});
+
+// TRANSACTION REVOLUT
+document.querySelectorAll(".revFrais").forEach((input, index)=>{
     input.addEventListener("change", function(){
-        let base = document.querySelectorAll(".revBase")[i];
-        base.value = Number(base.value||0) + Number(input.value||0);
+        let base = document.querySelectorAll(".revBase")[index];
+        base.value = Number(base.value || 0) + Number(input.value || 0);
         input.value = "";
         calcul();
     });
 });
 
-// 🔥 FRAIS DIVERS
-document.getElementById("diversInput").addEventListener("change", function(){
-    let total = document.getElementById("diversTotal");
-    total.value = Number(total.value||0) + Number(this.value||0);
-    this.value = "";
-    calcul();
+document.querySelectorAll("input").forEach(i=>{
+    i.addEventListener("input", calcul);
 });
 
 function calcul(){
 
     let revenus =
-        Number(negan.value||0) +
-        Number(lucille.value||0) +
-        Number(bonus.value||0);
+        Number(negan.value || 0) +
+        Number(lucille.value || 0) +
+        Number(bonus.value || 0);
 
     let charges = 0;
     document.querySelectorAll(".charge").forEach(i=>{
-        charges += Number(i.value||0);
+        charges += Number(i.value || 0);
     });
 
-    charges += Number(document.getElementById("diversTotal").value||0);
+    charges += Number(diversTotal.value || 0);
 
     let totalRevolut = 0;
     document.querySelectorAll(".revBase").forEach(i=>{
-        totalRevolut += Number(i.value||0);
+        totalRevolut += Number(i.value || 0);
     });
 
     let reste = revenus - charges;
@@ -199,17 +210,4 @@ function calcul(){
 
     let resteText = document.getElementById("reste");
     resteText.innerText = "Reste : " + reste.toFixed(2) + " €";
-    resteText.className = reste < 0 ? "negative" : "total";
-
-    document.getElementById("revTotal").innerText =
-        "Total Revolut : " + totalRevolut.toFixed(2) + " €";
-
-    alert.style.display = reste < 0 ? "block" : "none";
-}
-
-calcul();
-
-</script>
-
-</body>
-</html>
+    resteText.className = reste < 0 ? "negative" : "total
