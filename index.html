@@ -6,7 +6,7 @@
 <title>Budget Negan PRO</title>
 
 <style>
-body {margin:0;font-family:-apple-system;background:#0f172a;color:white;}
+body{margin:0;font-family:-apple-system;background:#0f172a;color:white;}
 h1{text-align:center;padding:15px;}
 .container{padding:10px;}
 .card{background:#1e293b;padding:15px;border-radius:15px;margin-bottom:15px;}
@@ -39,7 +39,7 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 
 <!-- CRELAN -->
 <div class="card">
-<h2>🏦 Charges CRELAN</h2>
+<h2>🏦 CRELAN</h2>
 
 <div class="row"><label>Prêt maison</label><input class="crelan" value="561.79"></div>
 <div class="row"><label>Prêt travaux 1</label><input class="crelan" value="283.26"></div>
@@ -59,28 +59,40 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 
 </div>
 
-<!-- AUTRES CHARGES -->
+<!-- AUTRES -->
 <div class="card">
 <h2>📦 Autres charges</h2>
 
-<div class="row"><label>Prêt voiture</label><input class="charge"></div>
-<div class="row"><label>Part contributive</label><input class="charge"></div>
-<div class="row"><label>Courses</label><input class="charge"></div>
-<div class="row"><label>Essence</label><input class="charge"></div>
+<div class="row"><label>Prêt voiture</label><input class="autres" value="273.85"></div>
+<div class="row"><label>Part contributives</label><input class="autres" value="558.54"></div>
+<div class="row"><label>Courses</label><input class="autres"></div>
+<div class="row"><label>Essence</label><input class="autres"></div>
 
-<div class="row"><label>Taxe voiture</label><input class="charge" value="50"></div>
-<div class="row"><label>Entretien voiture</label><input class="charge" value="125"></div>
-<div class="row"><label>Frais scolaire</label><input class="charge" value="125"></div>
+<p id="totalAutres" class="total"></p>
 
 </div>
 
 <!-- LUCILLE -->
 <div class="card">
-<h2>👩 Charges Lucille</h2>
+<h2>👩 Lucille</h2>
 
-<div class="row"><label>Lunettes</label><input class="charge" value="48"></div>
-<div class="row"><label>Apple</label><input class="charge" value="2.99"></div>
-<div class="row"><label>Proximus</label><input class="charge" value="79.98"></div>
+<div class="row"><label>Lunettes</label><input class="lucilleC" value="48"></div>
+<div class="row"><label>Apple</label><input class="lucilleC" value="2.99"></div>
+<div class="row"><label>Proximus</label><input class="lucilleC" value="79.98"></div>
+
+<p id="totalLucille" class="total"></p>
+
+</div>
+
+<!-- REVOLUT -->
+<div class="card">
+<h2>🏦 REVOLUT</h2>
+
+<div class="row"><label>Taxe voiture</label><input class="revolut" value="50"></div>
+<div class="row"><label>Entretien mobilité</label><input class="revolut" value="125"></div>
+<div class="row"><label>Frais extra scolaire</label><input class="revolut" value="125"></div>
+
+<p id="totalRevolut" class="total"></p>
 
 </div>
 
@@ -90,29 +102,6 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 
 <div class="row"><label>Total</label><input id="diversTotal" readonly></div>
 <div class="row"><label>Ajouter</label><input id="diversInput"></div>
-
-</div>
-
-<!-- REVOLUT -->
-<div class="card">
-<h2>🏦 Revolut</h2>
-
-<div class="row"><label>Média</label><input class="revBase"></div>
-<div class="row"><label>Frais</label><input class="revFrais"></div>
-
-<div class="row"><label>Carburant</label><input class="revBase"></div>
-<div class="row"><label>Frais</label><input class="revFrais"></div>
-
-<div class="row"><label>Scolaire</label><input class="revBase"></div>
-<div class="row"><label>Frais</label><input class="revFrais"></div>
-
-<div class="row"><label>Taxes</label><input class="revBase"></div>
-<div class="row"><label>Frais</label><input class="revFrais"></div>
-
-<div class="row"><label>Voiture</label><input class="revBase"></div>
-<div class="row"><label>Frais</label><input class="revFrais"></div>
-
-<p id="revTotal" class="total"></p>
 
 </div>
 
@@ -128,67 +117,48 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 
 <script>
 
-// TRANSACTIONS
-diversInput.addEventListener("change", function(){
-    diversTotal.value = (parseFloat(diversTotal.value)||0)+(parseFloat(this.value)||0);
-    this.value="";
-    calcul();
-});
-
-document.querySelectorAll(".revFrais").forEach((input,i)=>{
-    input.addEventListener("change", function(){
-        let base=document.querySelectorAll(".revBase")[i];
-        base.value=(parseFloat(base.value)||0)+(parseFloat(this.value)||0);
-        this.value="";
-        calcul();
-    });
+// FRAIS DIVERS
+diversInput.addEventListener("change",function(){
+diversTotal.value=(parseFloat(diversTotal.value)||0)+(parseFloat(this.value)||0);
+this.value="";
+calcul();
 });
 
 // CALCUL
+function somme(classe){
+let total=0;
+document.querySelectorAll("."+classe).forEach(i=>{
+let v=parseFloat(i.value);
+total+=isNaN(v)?0:v;
+});
+return total;
+}
+
 function calcul(){
 
-let revenusVal =
-(parseFloat(negan.value)||0)+
-(parseFloat(lucille.value)||0)+
-(parseFloat(bonus.value)||0);
+let revenusVal=(parseFloat(negan.value)||0)+(parseFloat(lucille.value)||0)+(parseFloat(bonus.value)||0);
 
-// CRELAN
-let crelanTotal=0;
-document.querySelectorAll(".crelan").forEach(i=>{
-let v=parseFloat(i.value);
-crelanTotal+=isNaN(v)?0:v;
-});
+let crelan=somme("crelan");
+let autres=somme("autres");
+let lucilleT=somme("lucilleC");
+let revolut=somme("revolut");
+let divers=(parseFloat(diversTotal.value)||0);
 
-document.getElementById("totalCrelan").innerText="Total CRELAN : "+crelanTotal.toFixed(2)+" €";
+document.getElementById("totalCrelan").innerText="Total CRELAN : "+crelan.toFixed(2)+" €";
+document.getElementById("totalAutres").innerText="Total Autres : "+autres.toFixed(2)+" €";
+document.getElementById("totalLucille").innerText="Total Lucille : "+lucilleT.toFixed(2)+" €";
+document.getElementById("totalRevolut").innerText="Total Revolut : "+revolut.toFixed(2)+" €";
 
-// AUTRES
-let chargesVal=0;
-document.querySelectorAll(".charge").forEach(i=>{
-let v=parseFloat(i.value);
-chargesVal+=isNaN(v)?0:v;
-});
-
-chargesVal+=crelanTotal;
-chargesVal+=(parseFloat(diversTotal.value)||0);
-
-// REVOLUT
-let revTotal=0;
-document.querySelectorAll(".revBase").forEach(i=>{
-let v=parseFloat(i.value);
-revTotal+=isNaN(v)?0:v;
-});
+let chargesVal=crelan+autres+lucilleT+revolut+divers;
 
 let reste=revenusVal-chargesVal;
 
-// AFFICHAGE
 document.getElementById("revenus").innerText="Revenus : "+revenusVal.toFixed(2)+" €";
 document.getElementById("charges").innerText="Charges : "+chargesVal.toFixed(2)+" €";
 
 let r=document.getElementById("reste");
 r.innerText="Reste : "+reste.toFixed(2)+" €";
 r.className=reste<0?"negative":"total";
-
-revTotalEl.innerText="Revolut : "+revTotal.toFixed(2)+" €";
 
 alert.style.display=reste<0?"block":"none";
 
@@ -197,9 +167,9 @@ saveData();
 
 // SAVE
 function saveData(){
-let data=[];
-document.querySelectorAll("input").forEach(i=>data.push(i.value));
-localStorage.setItem("budgetNegan",JSON.stringify(data));
+let d=[];
+document.querySelectorAll("input").forEach(i=>d.push(i.value));
+localStorage.setItem("budgetNegan",JSON.stringify(d));
 }
 
 // LOAD
