@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Budget Negan PRO</title>
+<title>Budget Negan</title>
 
 <style>
 body{margin:0;font-family:-apple-system;background:#0f172a;color:white;}
@@ -41,19 +41,19 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 <div class="card">
 <h2>🏦 CRELAN</h2>
 
-<div class="row"><label>Prêt maison</label><input class="crelan" value="561.79"></div>
-<div class="row"><label>Prêt travaux 1</label><input class="crelan" value="283.26"></div>
-<div class="row"><label>Prêt travaux 2</label><input class="crelan" value="326.41"></div>
-<div class="row"><label>Eau</label><input class="crelan" value="63.33"></div>
-<div class="row"><label>Gaz électricité</label><input class="crelan" value="231.99"></div>
-<div class="row"><label>FGTB</label><input class="crelan" value="17.70"></div>
-<div class="row"><label>Partenamut</label><input class="crelan" value="38.21"></div>
-<div class="row"><label>Assurance groupe</label><input class="crelan" value="120.63"></div>
-<div class="row"><label>Garage</label><input class="crelan" value="100"></div>
-<div class="row"><label>Proximus</label><input class="crelan" value="55"></div>
-<div class="row"><label>Base</label><input class="crelan" value="27.30"></div>
-<div class="row"><label>VOO</label><input class="crelan" value="72"></div>
-<div class="row"><label>Média</label><input class="crelan" value="30"></div>
+<div class="row"><label>Prêt maison</label><input class="crelan" type="number" value="561.79"></div>
+<div class="row"><label>Prêt travaux 1</label><input class="crelan" type="number" value="283.26"></div>
+<div class="row"><label>Prêt travaux 2</label><input class="crelan" type="number" value="326.41"></div>
+<div class="row"><label>Eau</label><input class="crelan" type="number" value="63.33"></div>
+<div class="row"><label>Gaz / Électricité</label><input class="crelan" type="number" value="231.99"></div>
+<div class="row"><label>FGTB</label><input class="crelan" type="number" value="17.70"></div>
+<div class="row"><label>Partenamut</label><input class="crelan" type="number" value="38.21"></div>
+<div class="row"><label>Assurance groupe</label><input class="crelan" type="number" value="120.63"></div>
+<div class="row"><label>Garage</label><input class="crelan" type="number" value="100"></div>
+<div class="row"><label>Proximus</label><input class="crelan" type="number" value="55"></div>
+<div class="row"><label>Base</label><input class="crelan" type="number" value="27.30"></div>
+<div class="row"><label>VOO</label><input class="crelan" type="number" value="72"></div>
+<div class="row"><label>Média</label><input class="crelan" type="number" value="30"></div>
 
 <p id="totalCrelan" class="total"></p>
 
@@ -63,10 +63,12 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 <div class="card">
 <h2>📦 Autres charges</h2>
 
-<div class="row"><label>Prêt voiture</label><input class="autres" value="273.85"></div>
-<div class="row"><label>Part contributives</label><input class="autres" value="558.54"></div>
-<div class="row"><label>Courses</label><input class="autres"></div>
-<div class="row"><label>Essence</label><input class="autres"></div>
+<div class="row"><label>Prêt voiture</label><input class="autres" type="number" value="273.85"></div>
+<div class="row"><label>Part contributives</label><input class="autres" type="number" value="558.54"></div>
+<div class="row"><label>Avocat</label><input class="autres" type="number"></div>
+<div class="row"><label>VISA</label><input class="autres" type="number"></div>
+<div class="row"><label>Courses</label><input class="autres" type="number"></div>
+<div class="row"><label>Essence</label><input class="autres" type="number"></div>
 
 <p id="totalAutres" class="total"></p>
 
@@ -76,9 +78,9 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 <div class="card">
 <h2>👩 Lucille</h2>
 
-<div class="row"><label>Lunettes</label><input class="lucilleC" value="48"></div>
-<div class="row"><label>Apple</label><input class="lucilleC" value="2.99"></div>
-<div class="row"><label>Proximus</label><input class="lucilleC" value="79.98"></div>
+<div class="row"><label>Lunettes</label><input class="lucilleC" type="number" value="48"></div>
+<div class="row"><label>Apple</label><input class="lucilleC" type="number" value="2.99"></div>
+<div class="row"><label>Proximus</label><input class="lucilleC" type="number" value="79.98"></div>
 
 <p id="totalLucille" class="total"></p>
 
@@ -88,20 +90,11 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 <div class="card">
 <h2>🏦 REVOLUT</h2>
 
-<div class="row"><label>Taxe voiture</label><input class="revolut" value="50"></div>
-<div class="row"><label>Entretien mobilité</label><input class="revolut" value="125"></div>
-<div class="row"><label>Frais extra scolaire</label><input class="revolut" value="125"></div>
+<div class="row"><label>Taxe voiture</label><input class="revolut" type="number" value="50"></div>
+<div class="row"><label>Entretien mobilité</label><input class="revolut" type="number" value="125"></div>
+<div class="row"><label>Frais extra scolaire</label><input class="revolut" type="number" value="125"></div>
 
 <p id="totalRevolut" class="total"></p>
-
-</div>
-
-<!-- FRAIS DIVERS -->
-<div class="card">
-<h2>💸 Frais divers</h2>
-
-<div class="row"><label>Total</label><input id="diversTotal" readonly></div>
-<div class="row"><label>Ajouter</label><input id="diversInput"></div>
 
 </div>
 
@@ -117,50 +110,53 @@ input{padding:10px;margin:6px 0;border-radius:10px;border:none;}
 
 <script>
 
-// FRAIS DIVERS
-diversInput.addEventListener("change",function(){
-diversTotal.value=(parseFloat(diversTotal.value)||0)+(parseFloat(this.value)||0);
-this.value="";
-calcul();
+// recalcul live
+document.querySelectorAll("input").forEach(i=>{
+    i.addEventListener("input", calcul);
 });
 
-// CALCUL
+// fonction somme fiable
 function somme(classe){
-let total=0;
-document.querySelectorAll("."+classe).forEach(i=>{
-let v=parseFloat(i.value);
-total+=isNaN(v)?0:v;
-});
-return total;
+    let total=0;
+    document.querySelectorAll("."+classe).forEach(i=>{
+        let val=parseFloat(i.value);
+        total += isNaN(val) ? 0 : val;
+    });
+    return total;
 }
 
 function calcul(){
 
-let revenusVal=(parseFloat(negan.value)||0)+(parseFloat(lucille.value)||0)+(parseFloat(bonus.value)||0);
+let revenusVal =
+(parseFloat(negan.value)||0)+
+(parseFloat(lucille.value)||0)+
+(parseFloat(bonus.value)||0);
 
 let crelan=somme("crelan");
 let autres=somme("autres");
 let lucilleT=somme("lucilleC");
 let revolut=somme("revolut");
-let divers=(parseFloat(diversTotal.value)||0);
 
-document.getElementById("totalCrelan").innerText="Total CRELAN : "+crelan.toFixed(2)+" €";
-document.getElementById("totalAutres").innerText="Total Autres : "+autres.toFixed(2)+" €";
-document.getElementById("totalLucille").innerText="Total Lucille : "+lucilleT.toFixed(2)+" €";
-document.getElementById("totalRevolut").innerText="Total Revolut : "+revolut.toFixed(2)+" €";
+// affichage sous totaux
+totalCrelan.innerText="Total CRELAN : "+crelan.toFixed(2)+" €";
+totalAutres.innerText="Total Autres : "+autres.toFixed(2)+" €";
+totalLucille.innerText="Total Lucille : "+lucilleT.toFixed(2)+" €";
+totalRevolut.innerText="Total Revolut : "+revolut.toFixed(2)+" €";
 
-let chargesVal=crelan+autres+lucilleT+revolut+divers;
+// total global
+let chargesVal = crelan + autres + lucilleT + revolut;
 
-let reste=revenusVal-chargesVal;
+let reste = revenusVal - chargesVal;
 
-document.getElementById("revenus").innerText="Revenus : "+revenusVal.toFixed(2)+" €";
-document.getElementById("charges").innerText="Charges : "+chargesVal.toFixed(2)+" €";
+// affichage
+revenus.innerText="Revenus : "+revenusVal.toFixed(2)+" €";
+charges.innerText="Charges : "+chargesVal.toFixed(2)+" €";
 
-let r=document.getElementById("reste");
-r.innerText="Reste : "+reste.toFixed(2)+" €";
-r.className=reste<0?"negative":"total";
+resteEl = document.getElementById("reste");
+resteEl.innerText="Reste : "+reste.toFixed(2)+" €";
+resteEl.className = reste < 0 ? "negative" : "total";
 
-alert.style.display=reste<0?"block":"none";
+alert.style.display = reste < 0 ? "block" : "none";
 
 saveData();
 }
